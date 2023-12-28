@@ -1,18 +1,18 @@
 {
     "manifest_version": 2,
-    "name": "Video Length Extension",
-    "version": "1.1",
-    "description": "Adds length of video to tab title to enable sorting",
+    "name": "Video Metadata Extension",
+    "version": "0.5",
+    "description": "Adds some video metadata to tab title to enable filtering",
     "content_scripts": [
         {
             "run_at": "document_end",
             "matches": ["*://*.youtube.com/watch*"],
-            "js": ["vidlen.js"]
+            "js": ["vidmeta.js"]
         }
     ],
     "browser_specific_settings": {
         "gecko": {
-          "id": "Youtube-Video-Length-Fetcher@Parker-Parker.Github.io"
+          "id": "Youtube-Video-Metadata-Fetcher@Parker-Parker.Github.io"
         }
     } 
     

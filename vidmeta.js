@@ -17,8 +17,32 @@ var description; //for name
 
 var loaded =  false;
 
-while(!loaded){
-  console.log("loading")
+// while(!loaded){
+//   console.log("loading")
+
+//   try {
+//   channelNameTag = document.getElementById("text").textContent; //for name
+//   subscribeButton = document.getElementById("subscribe-button-shape").getElementsByTagName("span")[0].textContent;//for sub status
+//   description = Array.from( document.getElementById("description-inner").getElementsByClassName("style-scope yt-formatted-string bold")).filter(el => el.textContent.includes("ago") )[0].textContent;// for livestream
+  
+//   loaded =
+//     typeof(channelNameTag).startsWith("string") &&
+//     typeof(subscribeButton).startsWith("string") &&
+//     typeof(description).startsWith("string") && 
+//     (channelNameTag.length >= 1) &&
+//     (subscribeButton.length >= 1) &&
+//     (description.length >= 1) ; 
+//   }
+//   catch{
+//     loaded = false;
+//   }
+
+// }
+// console.log("done")
+
+function loadTheThing() {
+
+  console.log("loading");
 
   try {
   channelNameTag = document.getElementById("text").textContent; //for name
@@ -32,13 +56,20 @@ while(!loaded){
     (channelNameTag.length >= 1) &&
     (subscribeButton.length >= 1) &&
     (description.length >= 1) ; 
+
+
+    console.log(channelNameTag);
+    console.log(subscribeButton);
+    console.log(description); 
   }
   catch{
+    console.log("Crashed!");
+
     loaded = false;
   }
 
+  console.log("Loaded: "+loaded);
 }
-console.log("done")
 
 // Tab title addon
 const titleSuffix = " ;; ytc:"+channelNameTag+" sbd:"+subscribeButton.endsWith("d")+" strm:"+description.includes("Stream");
@@ -48,7 +79,12 @@ const callback = (mutationList, observer) => {
   for (const mutation of mutationList) {
     if (mutation.type === "childList") {
       if(!document.title.includes(titleSuffix))  {
-        document.title = document.title + titleSuffix;
+        if(loaded){
+          document.title = document.title + titleSuffix;
+        }
+        else {
+          loadTheThing();
+        }
       }
     } 
   }

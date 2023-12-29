@@ -44,7 +44,7 @@ function loadTheThing() {
 
   console.log("loading");
 
-  try {
+  // try {
   channelNameTag = document.getElementById("text").textContent; //for name
   subscribeButton = document.getElementById("subscribe-button-shape").getElementsByTagName("span")[0].textContent;//for sub status
   description = Array.from( document.getElementById("description-inner").getElementsByClassName("style-scope yt-formatted-string bold")).filter(el => el.textContent.includes("ago") )[0].textContent;// for livestream
@@ -61,12 +61,12 @@ function loadTheThing() {
     console.log(channelNameTag);
     console.log(subscribeButton);
     console.log(description); 
-  }
-  catch{
-    console.log("Crashed!");
+  // }
+  // catch{
+  //   console.log("Crashed!");
 
-    loaded = false;
-  }
+  //   loaded = false;
+  // }
 
   console.log("Loaded: "+loaded);
 }
@@ -77,14 +77,20 @@ const titleSuffix = " ;; ytc:"+channelNameTag+" sbd:"+subscribeButton.endsWith("
 // Callback function to execute when mutations are observed
 const callback = (mutationList, observer) => {
   for (const mutation of mutationList) {
+    console.log("Callback");
     if (mutation.type === "childList") {
+      console.log("mutation detectioon triggered");
       if(!document.title.includes(titleSuffix))  {
-        if(loaded){
-          document.title = document.title + titleSuffix;
-        }
-        else {
-          loadTheThing();
-        }
+        // if(loaded){
+        //   document.title = document.title + titleSuffix;
+        // }
+        // else {
+        //   loadTheThing();
+        // }
+        console.log("setting");
+        loadTheThing();
+        document.title = document.title + titleSuffix;
+        
       }
     } 
   }
@@ -97,5 +103,5 @@ const observer = new MutationObserver(callback);
 
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
-
+console.log("running");
 

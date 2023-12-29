@@ -76,7 +76,7 @@ function loadTheThing() {
 
   console.log("Loaded: "+loaded);
 
-  titleSuffix = " ;; ytc:"+channelNameTag+" sbd:"+subscribeButton.endsWith("d")+" strm:"+description.includes("Stream");
+  titleSuffix = ' ;; ytc:('+channelNameTag+") sbd:("+subscribeButton.endsWith("d")+") strm:("+description.includes("Stream")+")";
 }
 
 // // Tab title addon

@@ -15,46 +15,40 @@ var channelNameTag; //for name
 var subscribeButton; //for sub status
 var description; //for name
 
+var loaded =  false;
 
-// channelNameTag = document.getElementById("upload-info"); //for name
-// subscribeButton = document.getElementById("upload-info");//for sub status
-// description = document.getElementById("info");//for name
-// channelNameTag = document.getElementById("text"); //for name
-channelNameTag = document.getElementById("text").textContent; //for name
-subscribeButton = document.getElementById("subscribe-button-shape").getElementsByTagName("span")[0].textContent;//for sub status
-description = Array.from( document.getElementById("description-inner").getElementsByClassName("style-scope yt-formatted-string bold")).filter(el => el.textContent.includes("ago") )[0].textContent;// for livestream
+while(!loaded){
+  console.log("loading")
 
-// Array.from(document.getElementById("description-inner").getElementsByTagName("span")).filter( (el)=>{return el.id === ""}  );
+  try {
+  channelNameTag = document.getElementById("text").textContent; //for name
+  subscribeButton = document.getElementById("subscribe-button-shape").getElementsByTagName("span")[0].textContent;//for sub status
+  description = Array.from( document.getElementById("description-inner").getElementsByClassName("style-scope yt-formatted-string bold")).filter(el => el.textContent.includes("ago") )[0].textContent;// for livestream
+  
+  loaded =
+    typeof(channelNameTag).startsWith("string") &&
+    typeof(subscribeButton).startsWith("string") &&
+    typeof(description).startsWith("string") && 
+    (channelNameTag.length >= 1) &&
+    (subscribeButton.length >= 1) &&
+    (description.length >= 1) ; 
+  }
+  catch{
+    loaded = false;
+  }
 
-const pad = (number) => {
-    let retstr = number+"";
-    if(retstr.length<2){
-        retstr = "0"+retstr;
-    }
-    return retstr;
-};
+}
+console.log("done")
 
-const makeDurationString = (seconds) => {
-    const secR = Math.round(seconds);
-    secs = Math.floor(secR)%60;
-    mins = Math.floor(secR/60)%(60);
-    hrs  = Math.floor(secR/(60*60));
-    len  =  (secR<60)       ? (secs+"").length   : 
-            (secR<(60*60))  ? (mins+"").length+2 : 
-                               (hrs+"").length+4 ;
-    
-    return ("_"+len+" "+hrs+":"+pad(mins)+":"+pad(secs)+" ");
-};
-
-// Tab title
-const finalTitle = makeDurationString(videoLengthSeconds)+initialTitle;
+// Tab title addon
+const titleSuffix = " ;; ytc:"+channelNameTag+" sbd:"+subscribeButton.endsWith("d")+" strm:"+description.includes("Stream");
 
 // Callback function to execute when mutations are observed
 const callback = (mutationList, observer) => {
   for (const mutation of mutationList) {
     if (mutation.type === "childList") {
-      if(!document.title.startsWith("_"))  {
-        document.title = finalTitle;
+      if(!document.title.includes(titleSuffix))  {
+        document.title = document.title + titleSuffix;
       }
     } 
   }

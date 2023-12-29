@@ -17,6 +17,12 @@ var description; //for name
 
 var loaded =  false;
 
+
+// Tab title addon
+var titleSuffix;
+
+
+
 // while(!loaded){
 //   console.log("loading")
 
@@ -69,10 +75,12 @@ function loadTheThing() {
   // }
 
   console.log("Loaded: "+loaded);
+
+  titleSuffix = " ;; ytc:"+channelNameTag+" sbd:"+subscribeButton.endsWith("d")+" strm:"+description.includes("Stream");
 }
 
-// Tab title addon
-const titleSuffix = " ;; ytc:"+channelNameTag+" sbd:"+subscribeButton.endsWith("d")+" strm:"+description.includes("Stream");
+// // Tab title addon
+// const titleSuffix = " ;; ytc:"+channelNameTag+" sbd:"+subscribeButton.endsWith("d")+" strm:"+description.includes("Stream");
 
 // Callback function to execute when mutations are observed
 const callback = (mutationList, observer) => {

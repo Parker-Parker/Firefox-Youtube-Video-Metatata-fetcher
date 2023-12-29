@@ -10,6 +10,22 @@ const initialTitle = document.title;
 // Video length
 var videoLengthSeconds = document.getElementsByTagName("video")[0].duration;
 
+// get channel elements
+var channelNameTag; //for name
+var subscribeButton; //for sub status
+var description; //for name
+
+
+// channelNameTag = document.getElementById("upload-info"); //for name
+// subscribeButton = document.getElementById("upload-info");//for sub status
+// description = document.getElementById("info");//for name
+// channelNameTag = document.getElementById("text"); //for name
+channelNameTag = document.getElementById("text").textContent; //for name
+subscribeButton = document.getElementById("subscribe-button-shape").getElementsByTagName("span")[0].textContent;//for sub status
+description = Array.from( document.getElementById("description-inner").getElementsByClassName("style-scope yt-formatted-string bold")).filter(el => el.textContent.includes("ago") )[0].textContent;// for livestream
+
+// Array.from(document.getElementById("description-inner").getElementsByTagName("span")).filter( (el)=>{return el.id === ""}  );
+
 const pad = (number) => {
     let retstr = number+"";
     if(retstr.length<2){
